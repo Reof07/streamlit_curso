@@ -3,24 +3,6 @@ import streamlit as st
 # Set page title
 st.title('Chatbot basico con streamlit') 
 
-side_bar_provider_list = [
-    ["OpenAI", "OpenAI"],
-    ["Azure", "Azure"],
-    ["Cohere", "Cohere"]
-]
-
-# Set sidebar
-add_selectbox = st.sidebar.selectbox(
-    "Seleciona un modelo",
-    side_bar_provider_list,
-    format_func=lambda x: x[0],
-)
-
-api_key = st.sidebar.text_input(
-        "Api key",
-        type="password",
-        placeholder="Inserta tu api key",
-    )
 
 
 history = []

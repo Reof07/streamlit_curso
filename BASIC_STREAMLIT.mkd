@@ -1,0 +1,119 @@
+# 🧠 Componentes de Streamlit usados en tu app
+
+A continuación, se detallan los componentes principales de Streamlit utilizados en tu aplicación, explicando qué hacen, cómo funcionan y por qué son útiles.
+
+---
+
+## 1. `import streamlit as st`
+
+### ¿Qué hace?
+Importa toda la funcionalidad de Streamlit y la pone disponible bajo el alias `st`.
+
+### ¿Cómo funciona?
+Streamlit es una librería que transforma un script de Python en una aplicación web interactiva. Todo lo que uses como `st.elemento(...)` se traduce automáticamente en widgets web o interfaz en el navegador.
+
+### ¿Por qué lo usamos?
+Necesitamos crear una interfaz amigable (título, entradas de texto, mensajes de chat) de forma sencilla y rápida, sin necesidad de escribir HTML o JavaScript.
+
+---
+
+## 2. `st.title("🧠 Mi Chat con LangChain + Streamlit")`
+
+### ¿Qué hace?
+Muestra un título grande (de tipo `<h1>`) en la parte superior de tu aplicación.
+
+### ¿Cómo funciona?
+Streamlit interpreta esto y genera un HTML visible en la web con estilo grande. Cada vez que ejecutas el script, este `st.title` vuelve a pintar el título.
+
+### ¿Por qué lo usamos?
+Para que el usuario vea claramente de qué trata la aplicación. Este tipo de detalles mejora significativamente la experiencia del usuario.
+
+---
+
+## 3. `st.session_state`
+
+### ¿Qué hace?
+Guarda datos persistentes entre interacciones del usuario. Aunque el script de Streamlit se recargue cada vez que el usuario interactúa, `st.session_state` mantiene ciertos datos vivos.
+
+### ¿Cómo funciona?
+Internamente, Streamlit guarda una especie de "estado de sesión" que sobrevive a recargas del navegador. Cuando defines `st.session_state["algo"]`, ese "algo" queda guardado entre interacciones.
+
+### ¿Por qué lo usamos?
+- Para guardar el historial de conversación (`messages`).
+- Sin esto, el chat se borraría cada vez que el usuario escribe algo nuevo.
+- Es crítico para mantener una conversación continua.
+
+---
+
+## 4. `st.chat_input("¿Qué quieres saber?")`
+
+### ¿Qué hace?
+Muestra un campo de entrada de texto especial al estilo "chat" en la parte inferior de la pantalla.
+
+### ¿Cómo funciona?
+Es similar a `st.text_input`, pero con un diseño adaptado para aplicaciones de mensajería/chat. Cuando el usuario envía el mensaje (presionando Enter o un botón), el script se recarga y puedes acceder al contenido enviado.
+
+### ¿Por qué lo usamos?
+Para permitir que el usuario escriba preguntas de forma cómoda, como si estuviera chateando.
+
+---
+
+## 5. `st.chat_message(role)`
+
+### ¿Qué hace?
+Crea un bloque de chat visual que representa un mensaje enviado por un usuario, asistente o sistema.
+
+### ¿Cómo funciona?
+El parámetro `role` puede ser:
+- `"user"`: Streamlit muestra un mensaje como si fuera enviado por la persona que usa la app.
+- `"assistant"`: Streamlit muestra un mensaje como si fuera el asistente o bot.
+- `"system"`: (opcional) mensajes administrativos o internos.
+
+Dentro de un `st.chat_message`, puedes incluir otros elementos como `st.markdown`, `st.text`, imágenes, botones, etc.
+
+### ¿Por qué lo usamos?
+Para construir un chat visualmente ordenado. Cada burbuja de mensaje se ve clara y separada, similar a WhatsApp o cualquier mensajero.
+
+---
+
+## 6. `st.markdown(texto)`
+
+### ¿Qué hace?
+Renderiza texto enriquecido en formato Markdown.
+
+### ¿Cómo funciona?
+Markdown es un formato ligero para dar estilo a los textos (**negrita**, *cursiva*, listas, enlaces, etc.). Streamlit convierte automáticamente el texto Markdown a HTML visible.
+
+### ¿Por qué lo usamos?
+Para mostrar los mensajes del usuario y del asistente de forma más atractiva que un simple texto plano. Además, permite usar emojis, enlaces, títulos, etc.
+
+---
+
+## 🔥 Bonus: Flujo real interno de estos componentes
+
+Cuando ejecutas tu aplicación de Streamlit:
+
+1. **Carga inicial**: Se carga el script de arriba hacia abajo.
+2. **Interpretación**: Streamlit interpreta cada componente (`st.title`, `st.chat_input`, etc.) y los pinta en el navegador.
+3. **Interacción del usuario**:
+   - Cuando un usuario envía un mensaje (`chat_input`), Streamlit:
+     - Recarga el script.
+     - Recuerda todo lo que estaba en `st.session_state`.
+     - Vuelve a pintar todo, pero ahora con el nuevo input agregado.
+4. **Resultado final**: Así logra que parezca una aplicación "viva", aunque en realidad re-ejecuta Python completo cada vez.
+
+---
+
+## 🎯 Resumen de los componentes
+
+| **Componente**         | **Función**                                                                 |
+|-------------------------|-----------------------------------------------------------------------------|
+| `st.title`             | Muestra un título grande en la parte superior de la aplicación.            |
+| `st.session_state`     | Guarda datos persistentes entre interacciones del usuario.                 |
+| `st.chat_input`        | Permite al usuario escribir mensajes de forma cómoda.                      |
+| `st.chat_message`      | Muestra mensajes de chat organizados (usuario, asistente, sistema).        |
+| `st.markdown`          | Renderiza texto enriquecido con formato Markdown.                          |
+
+---
+
+Con estos componentes, puedes construir una aplicación interactiva y visualmente atractiva sin complicaciones. ¡Espero que esta guía te sea útil! 😊🚀
